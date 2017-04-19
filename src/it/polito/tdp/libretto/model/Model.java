@@ -3,6 +3,8 @@ package it.polito.tdp.libretto.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.tdp.libretto.db.EsameDAO;
+
 /**
  * Il model e' la classe principale che gestisce
  * i dati di tipo esame
@@ -30,12 +32,16 @@ public class Model {
 	 * quindi non l'ha potuto inserire
 	 */
 	public boolean addEsame(Esame e){
-		if(!esami.contains(e)){
-			esami.add(e);
-			return true ;
-		} else {
-			return false;
-		}
+//		if(!esami.contains(e)){
+//			esami.add(e);
+//			return true ;
+//		} else {
+//			return false;
+//		}
+		
+		EsameDAO dao = new EsameDAO() ;
+		
+		return dao.create(e) ;
 		
 	}
 	
@@ -51,12 +57,18 @@ public class Model {
 		// Non sara mai identico,non sara mai nella stessa locazione di memoria
 		// Ma rispondera il modo positivo all'equals perché ha lo stesso codice
 		
-		int pos = esami.indexOf(new Esame(codice, null, null));
-		if(pos==-1){
-			return null ;
-		} else {
-			return esami.get(pos);
-		}
+//		int pos = esami.indexOf(new Esame(codice, null, null));
+//		if(pos==-1){
+//			return null ;
+//		} else {
+//			return esami.get(pos);
+//		}
+		
+		EsameDAO dao = new EsameDAO() ;
+		
+		Esame e = dao.find(codice) ;
+		
+		return e ;
 		
 	}
 
